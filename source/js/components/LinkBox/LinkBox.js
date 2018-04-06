@@ -1,9 +1,5 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import Transactions from '../Transactions/';
-
-import Table from '../Table/';
-
 import {authRequest,authSuccess} from '../../actions/Auth/AuthActions.js';
 import {Switch,Route,Link,Redirect,withRouter} from 'react-router-dom';
 

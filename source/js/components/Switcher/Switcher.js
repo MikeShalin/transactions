@@ -6,7 +6,7 @@ import Transactions from '../Transactions/';
 import TableLols from '../TableLols/';
 import {Switch,Route,Link,Redirect,withRouter} from 'react-router-dom';
 
-export class Table extends Component{
+export class Switcher extends Component{
     handleExit =(e)=> {
         const {authRequest} = this.props;
         e.preventDefault();
@@ -14,6 +14,7 @@ export class Table extends Component{
             login: false,
             password: false,
         });
+
         // this.props.location.pathname = '/';
     };
     render(){
@@ -56,4 +57,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Table));
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Switcher));

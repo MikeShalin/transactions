@@ -7,5 +7,5 @@ export const {
 } = createActions({
     AUTH_REQUEST: logIn => logIn,
     AUTH_SUCCESS: bool => bool,
-    AUTH_ERROR: undefined,
+    AUTH_ERROR: bool => bool,
 });

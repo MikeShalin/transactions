@@ -59,7 +59,7 @@ export class Auth extends Component{
     render(){
         const {login,password} = this.state,
               {Auth,AuthError} = this.props;
-        console.log('Мы авторизовались?',this.props.AuthError);
+        console.log('Ошибки при регистрации?',AuthError);
         return(
            <div>
                <form action="" onSubmit={this.handleSubmit}>

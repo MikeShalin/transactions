@@ -1,11 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import Transactions from '../Transactions/';
-
-import Table from '../Table/';
-
 import {authRequest,authSuccess} from '../../actions/Auth/AuthActions.js';
-import {Switch,Route,Link,Redirect,withRouter} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 
 export class PopUp extends Component{
 
@@ -22,11 +18,7 @@ const mapStateToProps = (state) =>{
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {
-        authRequest: (logIn)=>{
-            dispatch(authRequest(logIn))
-        }
-    }
+    return {}
 };
 
 export default withRouter(connect(mapStateToProps,mapDispatchToProps)(PopUp));

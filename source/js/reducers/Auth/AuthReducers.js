@@ -25,7 +25,7 @@ export const Auth = handleAction(
 
 export const AuthError = handleAction(
     authError,
-    (state, action) => true,
+    (state, action) => action.payload,
     null
 );
 
