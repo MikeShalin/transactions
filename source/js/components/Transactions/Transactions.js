@@ -9,11 +9,9 @@ import PopUp from '../PopUp/';
 export class Transactions extends Component{
     constructor(props){
         super(props);
-        const {BanksName} = this.props;
-        this.initialBank=Math.min.apply(null, BanksName.map(bank => (bank.id)));
         this.state = {
             amount:"",
-            bank:this.initialBank,
+            bank:1,
             textPopUp:"Введите число",
             popUpShow:false
         }
@@ -24,15 +22,20 @@ export class Transactions extends Component{
             this.setState({textPopUp:'Транзакция успешно добавлена',popUpShow:true});
         if(TransactionError && !prevProps.TransactionError)
             this.setState({popUpShow:true});
-
+        if(TransactionError && !prevProps.TransactionError && Transactions.length === prevProps.Transactions.length)
+            this.setState({textPopUp:'Введите число'});
+    }
+    componentDidMount(){
+        const {BanksName} = this.props;
+        this.setState({initialBank:Math.min.apply(null, BanksName.map(bank => (bank.id)))});
     }
     handleSubmit =(e)=> {
-        const {transactionAdd} = this.props;
+        const {transactionAdd,BanksName} = this.props;
         e.preventDefault();
         transactionAdd(this.state);
         this.setState({
             amount:"",
-            bank:this.initialBank
+            bank:Math.min.apply(null, BanksName.map(bank => (bank.id)))
         });
     };
     handleChange =(e)=> {
@@ -43,6 +46,7 @@ export class Transactions extends Component{
     };
     render(){
         const {amount,bank,textPopUp,popUpShow} = this.state;
+        console.log('BanksName',this.state);
         return(
            <div>
                <form action="" onSubmit={this.handleSubmit}>

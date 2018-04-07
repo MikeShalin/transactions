@@ -4,10 +4,10 @@ import {withRouter} from 'react-router-dom';
 
 export class TableRow extends Component{
     render(){
-        const {id,amount,onDelete,BanksName,bankId} = this.props;
+        const {amount,onDelete,BanksName,bankId,i} = this.props;
         return (
             <tr>
-                <td><strong>{id}</strong></td>
+                <td><strong>{i}</strong></td>
                 <td>{amount}</td>
                 <td><i>{BanksName.filter(name=>(name.id===bankId))[0].name}</i></td>
                 <td><button onClick={onDelete}>Удалить</button></td>

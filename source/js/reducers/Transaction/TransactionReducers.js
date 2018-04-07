@@ -1,6 +1,5 @@
 import {
     transactionSuccess,
-    transactionFailure,
     transactionError,
     transactionRequest
 } from '../../actions/Transaction/TransactionActions';
@@ -17,7 +16,6 @@ export const isGetting = handleActions(
     {
         [transactionRequest]: () => true,
         [transactionSuccess]: () => false,
-        [transactionFailure]: () => false
     },
     false
 );

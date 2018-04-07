@@ -3,7 +3,6 @@ import {createActions} from 'redux-actions';
 export const {
     transactionRequest: transactionRequest,
     transactionSuccess: transactionSuccess,
-    transactionFailure: transactionFailure,
     transactionDelete : transactionDelete,
     transactionAdd   : transactionAdd,
     transactionError  : transactionError,
@@ -13,7 +12,6 @@ export const {
 
     TRANSACTION_SUCCESS: Transactions => Transactions,
 
-    TRANSACTION_FAILURE: undefined,
 
     TRANSACTION_DELETE: id => id,
 

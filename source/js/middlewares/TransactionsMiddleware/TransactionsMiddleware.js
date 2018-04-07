@@ -1,7 +1,7 @@
-import {transactionRequest,transactionSuccess,transactionFailure} from '../../actions/Transaction/TransactionActions';
+import {transactionRequest,transactionSuccess} from '../../actions/Transaction/TransactionActions';
 
 const TransactionsMiddleware = store => next => action => {
-    const banks = localStorage.getItem('banks');
+    const transactions = localStorage.getItem('transactions');
     if (action.type === transactionRequest.toString()){
         const xhttp = new XMLHttpRequest();
         xhttp.open("GET", '/', true);
@@ -9,7 +9,7 @@ const TransactionsMiddleware = store => next => action => {
         xhttp.onreadystatechange = function () {
             if (xhttp.readyState === 4) {
                 if (xhttp.status === 200)
-                    store.dispatch(transactionSuccess(JSON.parse(banks)));
+                    store.dispatch(transactionSuccess(JSON.parse(transactions)));
             }
         }
 

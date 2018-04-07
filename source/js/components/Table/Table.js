@@ -17,6 +17,7 @@ export class Table extends Component{
     };
     render(){
         const {Transactions,isGetting} = this.props;
+        console.log('Transactions',Transactions);
         return(
            <div>
                {isGetting?'Идет загрузка':''}
@@ -26,15 +27,16 @@ export class Table extends Component{
                        <td>Сумма</td>
                        <td>Наименование банка</td>
                    </tr>
-               {Transactions.map(bank => (
+               {Transactions.length !== 0?Transactions.map((transaction,i) => (
                    <TableRow
-                       key={bank.id}
-                       id = {bank.id}
-                       amount = {bank.amount}
-                       onDelete = {()=>this.handleDelete(bank.id)}
-                       bankId = {bank.bankId}
+                       key={transaction.id}
+                       i={i+1}
+                       id = {transaction.id}
+                       amount = {transaction.amount}
+                       onDelete = {()=>this.handleDelete(transaction.id)}
+                       bankId = {transaction.bankId}
                    />
-               ))}
+               )):'У вас пока нет транзакций'}
                </table>
            </div>
         )
