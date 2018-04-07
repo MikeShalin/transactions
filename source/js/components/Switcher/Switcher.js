@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import LinkBox from '../LinkBox/';
 import {authRequest,authSuccess} from '../../actions/Auth/AuthActions.js';
 import Transactions from '../Transactions/';
-import TableLols from '../TableLols/';
+import Table from '../Table/';
 import {Switch,Route,Link,Redirect,withRouter} from 'react-router-dom';
 
 export class Switcher extends Component{
@@ -23,14 +22,14 @@ export class Switcher extends Component{
         return(
             <div>
                 <ul>
-                    <li><Link to="/Table" component="Table">TableLols</Link></li>
+                    <li><Link to="/Table" component="Table">Table</Link></li>
                     <li><Link to="/Transactions" component="Transactions">Transactions</Link></li>
                     <li><Link to="/" component="exit" onClick={this.handleExit}>Выход</Link></li>
                     {/*<li onClick={this.handleExit}><a href="#">Выход</a></li>*/}
                 </ul>
                 <Switch>
                     {/*<Redirect from="/exit" to="/"/>*/}
-                    <Route path="/Table" exact component={TableLols}/>
+                    <Route path="/Table" exact component={Table}/>
                     <Route path="/Transactions"  component={Transactions}/>
                     <Redirect from="*" to="/Table"/>
 

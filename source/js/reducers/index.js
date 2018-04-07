@@ -1,10 +1,11 @@
 import {combineReducers} from 'redux';
 import {Auth,AuthError} from './Auth/AuthReducers.js';
-// import TrainingText from './TrainingText/';
-// import ErrorChar from './ErrorChar/';
-// import {Timer,Stopwatch,ErrorsCount,CharCount} from './TrainingFieldsReducers/TrainingFieldsReducers.js';
+import {Banks,isGeting,BanksName} from './Banks/BanksReducers';
 
 export default combineReducers({
     Auth,
-    AuthError
+    AuthError,
+    Banks,
+    isGeting,
+    BanksName
 });

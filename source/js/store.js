@@ -1,7 +1,8 @@
 import {createStore, applyMiddleware, compose} from 'redux';
 import AuthMiddleware from './middlewares/AuthMiddleware/';
-// import traningStringMiddleware from './middlewares/traningStringMiddleware/';
-// import keybordMiddleware from './middlewares/keybordMiddleware/';
+import BanksMiddleware from './middlewares/BanksMiddleware/';
+import BanksNameMiddleware from './middlewares/BanksNameMiddleware/';
+import BanksDeleteMiddleware from './middlewares/BanksDeleteMiddleware/';
 import rootReducer from './reducers';
 
 export default initialState =>
@@ -10,7 +11,10 @@ export default initialState =>
     initialState,
     compose(
       applyMiddleware(
-          AuthMiddleware
+          AuthMiddleware,
+          BanksMiddleware,
+          BanksNameMiddleware,
+          BanksDeleteMiddleware
       ),
       window.devToolsExtension ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f
     )

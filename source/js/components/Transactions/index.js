@@ -1,3 +1,1 @@
-import React from 'react';
-
-export default ()=>{return <p>transactions</p>};
+export {default} from './Transactions';
