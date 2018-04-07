@@ -13,27 +13,19 @@ export class Switcher extends Component{
             login: false,
             password: false,
         });
-
-        // this.props.location.pathname = '/';
     };
     render(){
-        console.log(this.props);
-
         return(
             <div>
                 <ul>
                     <li><Link to="/Table" component="Table">Table</Link></li>
                     <li><Link to="/Transactions" component="Transactions">Transactions</Link></li>
                     <li><Link to="/" component="exit" onClick={this.handleExit}>Выход</Link></li>
-                    {/*<li onClick={this.handleExit}><a href="#">Выход</a></li>*/}
                 </ul>
                 <Switch>
-                    {/*<Redirect from="/exit" to="/"/>*/}
                     <Route path="/Table" exact component={Table}/>
                     <Route path="/Transactions"  component={Transactions}/>
                     <Redirect from="*" to="/Table"/>
-
-                    {/*<Route path="/Table" component={Registration}/>*/}
                 </Switch>
 
             </div>

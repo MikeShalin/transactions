@@ -3,7 +3,6 @@ import {
     bankDelete
 } from '../../actions/Bank/BankActions';
 
-
 const BanksDeleteMiddleware = store => next => action => {
     if (action.type === bankDelete.toString()){
         let banks = store.getState().Banks;

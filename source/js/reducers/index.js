@@ -1,11 +1,11 @@
 import {combineReducers} from 'redux';
 import {Auth,AuthError} from './Auth/AuthReducers.js';
-import {Banks,isGeting,BanksName} from './Banks/BanksReducers';
+import {Banks,isGetting,BanksName} from './Banks/BanksReducers';
 
 export default combineReducers({
     Auth,
     AuthError,
     Banks,
-    isGeting,
+    isGetting,
     BanksName
 });

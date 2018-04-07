@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bankRequest,
-        bankSuccess,
-        bankFailure,
         bankDelete} from '../../actions/Bank/BankActions';
 import {Switch,Route,Link,Redirect,withRouter} from 'react-router-dom';
 
@@ -17,11 +15,11 @@ export class Table extends Component{
         bankDelete(id);
     };
     render(){
-        const {Banks,isGeting,BanksName} = this.props;
+        const {Banks,isGetting,BanksName} = this.props;
 
         return(
            <div>
-               {isGeting?'Идет загрузка':''}
+               {isGetting?'Идет загрузка':''}
                <table>
                    <tr>
                        <td>№</td>
@@ -47,7 +45,7 @@ export class Table extends Component{
 const mapStateToProps = (state) =>{
     return {
         Banks: state.Banks,
-        isGeting: state.isGeting,
+        isGetting: state.isGetting,
         BanksName: state.BanksName
     }
 };
@@ -56,9 +54,6 @@ const mapDispatchToProps = (dispatch) => {
     return {
         bankRequest: () => {
             dispatch(bankRequest());
-        },
-        bankSuccess: () => {
-            dispatch(bankSuccess());
         },
         bankDelete: (id) => {
             dispatch(bankDelete(id));

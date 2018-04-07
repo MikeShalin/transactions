@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {authRequest,authSuccess,authError} from '../../actions/Auth/AuthActions.js';
 import {addBankTransactions} from '../../actions/Bank/BankActions.js';
-import {Switch,Route,Link,Redirect,withRouter} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import Select from '../Select/';
 import Input from '../Input/';
 
@@ -19,7 +18,6 @@ export class Transactions extends Component{
         const {addBankTransactions} = this.props;
         e.preventDefault();
         addBankTransactions(this.state);
-        console.log('в транзакциях',this.state);
     };
     handleChange =(e)=> {
         const {name,value} = e.target;
@@ -43,7 +41,7 @@ export class Transactions extends Component{
                        type="text"
                        value={amount}
                        onChange={this.handleChange}
-                       isRequered={true}
+                       isRequired={true}
                    />
                    <input type="submit"/>
                </form>

@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import AuthComponent from '../Auth/';
 import Switcher from '../Switcher/';
 import {connect} from "react-redux";
-import {Switch,Route,Link,Redirect,withRouter} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import {bankNameRequest} from '../../actions/Bank/BankActions';
 
 export class App extends Component {

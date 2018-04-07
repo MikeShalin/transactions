@@ -7,7 +7,6 @@ export class Select extends Component{
     handleSelect =(e)=> {
         const {onChange} = this.props;
         onChange(e);
-        console.log('handleSelect в селекте', e.target.value,e.target.name);
     };
     render(){
         const {BanksName,name,value} = this.props;

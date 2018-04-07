@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {authRequest,authSuccess,authError} from '../../actions/Auth/AuthActions.js';
-import {Switch,Route,Link,Redirect,withRouter} from 'react-router-dom';
+import {authRequest,authSuccess} from '../../actions/Auth/AuthActions.js';
+import {withRouter} from 'react-router-dom';
 import PopUp from '../PopUp';
 
 export class Auth extends Component{
@@ -9,23 +9,8 @@ export class Auth extends Component{
         super(props);
         this.state = {
             login:"",
-            password:"",
-            // isShow:false
+            password:""
         }
-    }
-    componentDidUpdate(prevProps) {
-        // console.log('componentDidUpdate предыдущие пропсы',prevProps);
-    //     const {Timer,CharCount,AppState,getTimer,trainingStart} = this.props;
-    //     let timerTime = Timer.value;
-    //     if(CharCount.value === 0){
-    //         trainingStart(AppState+1);
-    //     }
-    //     if(prevProps.CharCount.value !== CharCount.value){
-    //         clearInterval(this.timer);
-    //         timerTime = 60;
-    //         getTimer(timerTime);
-    //         this.timer = this.interval(timerTime,trainingStart,AppState,getTimer);
-    //     }
     }
     componentDidMount(){
         const {login,password} = localStorage,
@@ -58,8 +43,7 @@ export class Auth extends Component{
     };
     render(){
         const {login,password} = this.state,
-              {Auth,AuthError} = this.props;
-        console.log('Ошибки при регистрации?',AuthError);
+              {AuthError} = this.props;
         return(
            <div>
                <form action="" onSubmit={this.handleSubmit}>

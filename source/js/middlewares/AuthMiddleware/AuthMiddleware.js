@@ -5,7 +5,12 @@ import {
 } from '../../actions/Auth/AuthActions.js';
 
 import {authorization} from '../../components/Auth/authApi';
-
+const remove =(withErr,store)=> {
+    store.dispatch(authSuccess(false));
+    store.dispatch(authError(withErr));
+    localStorage.removeItem('login');
+    localStorage.removeItem('password');
+};
 const AuthMiddleware = store => next => action => {
     if (action.type === authRequest.toString()){
         const {login,password} = action.payload;
@@ -15,17 +20,10 @@ const AuthMiddleware = store => next => action => {
                 localStorage.setItem('login', login);
                 localStorage.setItem('password', password);
             } else {
-                store.dispatch(authSuccess(false));
-                store.dispatch(authError(true));
-                localStorage.removeItem('login');
-                localStorage.removeItem('password');
+                remove(true,store);
             }
         } else {
-            console.log('логин и пароль в мидлвере отсутствуют',action.payload);
-            store.dispatch(authError(false));
-            store.dispatch(authSuccess(false));
-            localStorage.removeItem('login');
-            localStorage.removeItem('password');
+            remove(false,store);
         }
 
     }

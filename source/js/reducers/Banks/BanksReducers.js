@@ -2,9 +2,7 @@ import {
     bankRequest,
     bankSuccess,
     bankFailure,
-    bankNameRequest,
-    bankNameSuccess,
-    bankNameFailure
+    bankNameSuccess
 } from '../../actions/Bank/BankActions';
 import {handleAction, handleActions} from 'redux-actions';
 
@@ -20,8 +18,7 @@ export const BanksName = handleAction(
     false
 );
 
-
-export const isGeting = handleActions(
+export const isGetting = handleActions(
     {
         [bankRequest]: () => true,
         [bankSuccess]: () => false,

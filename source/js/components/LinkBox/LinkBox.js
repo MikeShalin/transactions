@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {authRequest,authSuccess} from '../../actions/Auth/AuthActions.js';
-import {Switch,Route,Link,Redirect,withRouter} from 'react-router-dom';
+import {authRequest} from '../../actions/Auth/AuthActions.js';
+import {Link,withRouter} from 'react-router-dom';
 
 export class LinkBox extends Component{
     handleExit =(e)=> {
