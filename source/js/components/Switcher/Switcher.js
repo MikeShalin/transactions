@@ -18,8 +18,8 @@ export class Switcher extends Component{
         return(
             <div>
                 <ul>
-                    <li><Link to="/Table" component="Table">Table</Link></li>
-                    <li><Link to="/Transactions" component="Transactions">Transactions</Link></li>
+                    <li><Link to="/Table" component="Table">Таблица транзакций</Link></li>
+                    <li><Link to="/Transactions" component="Transactions">Добавить транакцию</Link></li>
                     <li><Link to="/" component="exit" onClick={this.handleExit}>Выход</Link></li>
                 </ul>
                 <Switch>

@@ -17,7 +17,6 @@ export class Table extends Component{
     };
     render(){
         const {Transactions,isGetting} = this.props;
-        console.log('Transactions',Transactions);
         return(
            <div>
                {isGetting?'Идет загрузка':''}

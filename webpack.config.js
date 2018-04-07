@@ -43,6 +43,6 @@ module.exports = {
     plugins: [
         new ExtractTextPlugin('style.css')
     ],
-    devtool:'cheap-module-eval-source-map'
+    devtool:'none'
 
 };

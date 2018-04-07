@@ -46,7 +46,6 @@ export class Transactions extends Component{
     };
     render(){
         const {amount,bank,textPopUp,popUpShow} = this.state;
-        console.log('BanksName',this.state);
         return(
            <div>
                <form action="" onSubmit={this.handleSubmit}>
