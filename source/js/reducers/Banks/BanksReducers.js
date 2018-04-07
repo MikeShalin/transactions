@@ -2,7 +2,8 @@ import {
     bankRequest,
     bankSuccess,
     bankFailure,
-    bankNameSuccess
+    bankNameSuccess,
+    bankError
 } from '../../actions/Bank/BankActions';
 import {handleAction, handleActions} from 'redux-actions';
 
@@ -24,6 +25,12 @@ export const isGetting = handleActions(
         [bankSuccess]: () => false,
         [bankFailure]: () => false
     },
+    false
+);
+
+export const BankError = handleAction(
+    bankError,
+    (state, action) => action.payload,
     false
 );
 

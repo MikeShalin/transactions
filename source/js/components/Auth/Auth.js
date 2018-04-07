@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {authRequest,authSuccess} from '../../actions/Auth/AuthActions.js';
 import {withRouter} from 'react-router-dom';
 import PopUp from '../PopUp';
+import Input from '../Input/';
 
 export class Auth extends Component{
     constructor(props){
@@ -47,19 +48,19 @@ export class Auth extends Component{
         return(
            <div>
                <form action="" onSubmit={this.handleSubmit}>
-                   <input
-                       type="text"
+                   <Input
                        name="login"
                        placeholder="Введите логин"
-                       onChange={this.handleChange}
+                       type="text"
                        value={login}
+                       onChange={this.handleChange}
                    />
-                   <input
-                       type="password"
+                   <Input
                        name="password"
                        placeholder="Введите пароль"
-                       onChange={this.handleChange}
+                       type="password"
                        value={password}
+                       onChange={this.handleChange}
                    />
                    <input type="submit"/>
                </form>

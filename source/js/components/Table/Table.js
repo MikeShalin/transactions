@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bankRequest,
         bankDelete} from '../../actions/Bank/BankActions';
-import {Switch,Route,Link,Redirect,withRouter} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
+import TableRow from '../TableRow/';
 
 export class Table extends Component{
 
@@ -15,7 +16,7 @@ export class Table extends Component{
         bankDelete(id);
     };
     render(){
-        const {Banks,isGetting,BanksName} = this.props;
+        const {Banks,isGetting} = this.props;
 
         return(
            <div>
@@ -25,15 +26,15 @@ export class Table extends Component{
                        <td>№</td>
                        <td>Сумма</td>
                        <td>Наименование банка</td>
-                       <td>Удалить</td>
                    </tr>
                {Banks?Banks.map(bank => (
-                   <tr key={bank.id}>
-                       <td><strong>{bank.id}</strong></td>
-                       <td>{bank.amount}</td>
-                       <td><i>{BanksName.filter(name=>(name.id===bank.bankId))[0].name}</i></td>
-                       <td><button onClick={()=>this.handleDelete(bank.id)}>Удалить</button></td>
-                   </tr>
+                   <TableRow
+                       key={bank.id}
+                       id = {bank.id}
+                       amount = {bank.amount}
+                       onDelete = {()=>this.handleDelete(bank.id)}
+                       bankId = {bank.bankId}
+                       />
                )):''}
                </table>
            </div>
@@ -46,7 +47,6 @@ const mapStateToProps = (state) =>{
     return {
         Banks: state.Banks,
         isGetting: state.isGetting,
-        BanksName: state.BanksName
     }
 };
 
