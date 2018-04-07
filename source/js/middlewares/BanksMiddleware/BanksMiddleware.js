@@ -2,7 +2,7 @@ import {
     bankRequest,
     bankSuccess,
     bankFailure,
-} from '../../actions/Table/TableActions';
+} from '../../actions/Bank/BankActions';
 
 import {authorization} from '../../components/Auth/authApi';
 

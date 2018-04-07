@@ -7,7 +7,9 @@ export const {
     bankNameRequest:bankNameRequest,
     bankNameSuccess:bankNameSuccess,
     bankNameFailure:bankNameFailure,
-    bankDelete:bankDelete
+    bankDelete:bankDelete,
+    addBankTransactions:addBankTransactions
+
 } = createActions({
     BANK_REQUEST: undefined,
 
@@ -22,5 +24,7 @@ export const {
     BANK_NAME_FAILURE: undefined,
 
     BANK_DELETE: id => id,
+
+    ADD_BANK_TRANSACTIONS: transactions=>transactions
 
 });

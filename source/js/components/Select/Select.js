@@ -4,15 +4,25 @@ import {withRouter} from 'react-router-dom';
 import Option from '../Option/';
 
 export class Select extends Component{
+    handleSelect =(e)=> {
+        const {onChange} = this.props;
+        onChange(e);
+        console.log('handleSelect в селекте', e.target.value,e.target.name);
+    };
     render(){
-        const {BanksName} = this.props;
-        return (<select>
-            {BanksName.map((el,i)=>(
+        const {BanksName,name,value} = this.props;
+        return (<select
+                onChange={this.handleSelect}
+                name={name}
+                value={value}
+                >
+            {BanksName?BanksName.map((el,i)=>(
                 <Option
                     key={i}
                     name={el.name}
+                    value={el.id}
                 />
-            ))}
+            )):''}
         </select>)
     }
 }

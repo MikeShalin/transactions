@@ -3,25 +3,11 @@ import {connect} from 'react-redux';
 import {bankRequest,
         bankSuccess,
         bankFailure,
-        bankDelete} from '../../actions/Table/TableActions';
+        bankDelete} from '../../actions/Bank/BankActions';
 import {Switch,Route,Link,Redirect,withRouter} from 'react-router-dom';
 
 export class Table extends Component{
 
-    componentDidUpdate(prevProps) {
-        // console.log('componentDidUpdate предыдущие пропсы',prevProps);
-    //     const {Timer,CharCount,AppState,getTimer,trainingStart} = this.props;
-    //     let timerTime = Timer.value;
-    //     if(CharCount.value === 0){
-    //         trainingStart(AppState+1);
-    //     }
-    //     if(prevProps.CharCount.value !== CharCount.value){
-    //         clearInterval(this.timer);
-    //         timerTime = 60;
-    //         getTimer(timerTime);
-    //         this.timer = this.interval(timerTime,trainingStart,AppState,getTimer);
-    //     }
-    }
     componentDidMount(){
         const {bankRequest} = this.props;
         bankRequest();

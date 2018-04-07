@@ -2,7 +2,7 @@ import {
     bankNameRequest,
     bankNameSuccess,
     bankNameFailure
-} from '../../actions/Table/TableActions';
+} from '../../actions/Bank/BankActions';
 
 
 const BanksNameMiddleware = store => next => action => {

@@ -1,7 +1,7 @@
 import {
     bankSuccess,
     bankDelete
-} from '../../actions/Table/TableActions';
+} from '../../actions/Bank/BankActions';
 
 
 const BanksDeleteMiddleware = store => next => action => {

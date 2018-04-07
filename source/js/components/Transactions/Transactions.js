@@ -1,31 +1,50 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {authRequest,authSuccess,authError} from '../../actions/Auth/AuthActions.js';
+import {addBankTransactions} from '../../actions/Bank/BankActions.js';
 import {Switch,Route,Link,Redirect,withRouter} from 'react-router-dom';
-import Option from '../Option/';
+import Select from '../Select/';
+import Input from '../Input/';
 
-
-export class Auth extends Component{
-    // componentDidMount(){
-    //     const {login,password} = localStorage,
-    //           {authSuccess} = this.props;
-    //     if (login && password){
-    //         authSuccess({
-    //             login,
-    //             password
-    //         });
-    //     }
-    // }
+export class Transactions extends Component{
+    constructor(props){
+        super(props);
+        const {BanksName} = this.props;
+        this.state = {
+            amount:"",
+            bank:Math.min.apply(null, BanksName.map(bank => (bank.id))),
+        }
+    }
     handleSubmit =(e)=> {
+        const {addBankTransactions} = this.props;
         e.preventDefault();
+        addBankTransactions(this.state);
+        console.log('в транзакциях',this.state);
     };
     handleChange =(e)=> {
+        const {name,value} = e.target;
+        this.setState({
+            [name]:value
+        });
     };
     render(){
+        const {amount,bank} = this.state;
         return(
            <div>
                <form action="" onSubmit={this.handleSubmit}>
-                   <Option/>
+                   <Select
+                       onChange={this.handleChange}
+                       name='bank'
+                       value={bank}
+                   />
+                   <Input
+                       name="amount"
+                       placeholder="Сумма"
+                       type="text"
+                       value={amount}
+                       onChange={this.handleChange}
+                       isRequered={true}
+                   />
                    <input type="submit"/>
                </form>
            </div>
@@ -36,20 +55,16 @@ export class Auth extends Component{
 
 const mapStateToProps = (state) =>{
     return {
-        Auth:state.Auth,
-        AuthError:state.AuthError
+        BanksName: state.BanksName
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        authRequest: (logIn) => {
-            dispatch(authRequest(logIn));
-        },
-        authSuccess: (bool) => {
-            dispatch(authSuccess(bool))
+        addBankTransactions: (transactions) => {
+            dispatch(addBankTransactions(transactions));
         }
     }
 };
 
-export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Auth));
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Transactions));

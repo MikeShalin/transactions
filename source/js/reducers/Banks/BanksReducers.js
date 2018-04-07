@@ -5,7 +5,7 @@ import {
     bankNameRequest,
     bankNameSuccess,
     bankNameFailure
-} from '../../actions/Table/TableActions';
+} from '../../actions/Bank/BankActions';
 import {handleAction, handleActions} from 'redux-actions';
 
 export const Banks = handleAction(
