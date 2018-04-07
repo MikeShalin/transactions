@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {addBankTransactions} from '../../actions/Bank/BankActions.js';
+import {transactionAdd} from '../../actions/Transaction/TransactionActions';
 import {withRouter} from 'react-router-dom';
 import Select from '../Select/';
 import Input from '../Input/';
@@ -19,17 +19,17 @@ export class Transactions extends Component{
         }
     }
     componentDidUpdate(prevProps) {
-        const {Banks,BankError} =this.props;
-        if (Banks.length !== prevProps.Banks.length)
+        const {Transactions,TransactionError} =this.props;
+        if (Transactions.length !== prevProps.Transactions.length)
             this.setState({textPopUp:'Транзакция успешно добавлена',popUpShow:true});
-        if(BankError && !prevProps.BankError)
+        if(TransactionError && !prevProps.TransactionError)
             this.setState({popUpShow:true});
 
     }
     handleSubmit =(e)=> {
-        const {addBankTransactions} = this.props;
+        const {transactionAdd} = this.props;
         e.preventDefault();
-        addBankTransactions(this.state);
+        transactionAdd(this.state);
         this.setState({
             amount:"",
             bank:this.initialBank
@@ -62,7 +62,6 @@ export class Transactions extends Component{
                    <input type="submit"/>
                </form>
                {popUpShow?<PopUp> {textPopUp} </PopUp>:''}
-               {/*<PopUp> {textPopUp} </PopUp>*/}
            </div>
         )
     }
@@ -72,15 +71,15 @@ export class Transactions extends Component{
 const mapStateToProps = (state) =>{
     return {
         BanksName: state.BanksName,
-        BankError: state.BankError,
-        Banks: state.Banks,
+        TransactionError: state.TransactionError,
+        Transactions: state.Transactions,
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        addBankTransactions: (transactions) => {
-            dispatch(addBankTransactions(transactions));
+        transactionAdd: (transactions) => {
+            dispatch(transactionAdd(transactions));
         }
     }
 };

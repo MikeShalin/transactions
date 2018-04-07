@@ -1,12 +1,8 @@
-import {
-    bankSuccess,
-    addBankTransactions,
-    bankError
-} from '../../actions/Bank/BankActions';
+import {transactionSuccess,transactionAdd,transactionError} from '../../actions/Transaction/TransactionActions';
 
-const BanksAddMiddleware = store => next => action => {
-    if (action.type === addBankTransactions.toString()){
-        let banks = store.getState().Banks;
+const TransactionAddMiddleware = store => next => action => {
+    if (action.type === transactionAdd.toString()){
+        let banks = store.getState().Transactions;
         const amount = Number(action.payload.amount);
         if(!Number.isNaN(amount)){
             console.log('yes');
@@ -15,15 +11,15 @@ const BanksAddMiddleware = store => next => action => {
                 amount: amount,
                 bankId: Number(action.payload.bank)
             };
-            store.dispatch(bankSuccess([...banks,newBank]));
+            store.dispatch(transactionSuccess([...banks,newBank]));
             localStorage.setItem('banks', JSON.stringify([...banks,newBank]));
-            store.dispatch(bankError(false));
+            store.dispatch(transactionError(false));
         } else {
             console.log('no');
-            store.dispatch(bankError(true));
+            store.dispatch(transactionError(true));
         }
     }
     return next(action);
 };
 
-export default BanksAddMiddleware;
+export default TransactionAddMiddleware;
