@@ -1,22 +1,21 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {transactionRequest,transactionDelete} from '../../actions/Transaction/TransactionActions';
-
-import {withRouter} from 'react-router-dom';
-import TableRow from '../TableRow/';
+import {transactionRequest,transactionDelete} from 'js/actions/Transaction/TransactionActions';
+import {BankRow} from 'js/components/BankRow/BankRow';
+import {bankNameRequest} from 'js/actions/Bank/BankActions';
 
 export class Table extends Component{
-
-    componentDidMount(){
-        const {transactionRequest} = this.props;
+    componentWillMount(){
+        const {transactionRequest,bankNameRequest} = this.props;
+        bankNameRequest();
         transactionRequest();
     }
-    handleDelete =(id)=>{
+    handleDelete(id){
         const {transactionDelete} = this.props;
         transactionDelete(id);
     };
     render(){
-        const {Transactions,isGetting} = this.props;
+        const {BanksName,Transactions,isGetting} = this.props;
         return(
            <div>
                {isGetting?'Идет загрузка':''}
@@ -27,13 +26,12 @@ export class Table extends Component{
                        <td>Наименование банка</td>
                    </tr>
                {Transactions.length !== 0?Transactions.map((transaction,i) => (
-                   <TableRow
+                   <BankRow
                        key={transaction.id}
                        i={i+1}
-                       id = {transaction.id}
                        amount = {transaction.amount}
-                       onDelete = {()=>this.handleDelete(transaction.id)}
-                       bankId = {transaction.bankId}
+                       onDelete = {this.handleDelete.bind(this, transaction.id)}
+                       bankName = {BanksName.find(el=>(el.id===transaction.bankId))}
                    />
                )):'У вас пока нет транзакций'}
                </table>
@@ -43,22 +41,26 @@ export class Table extends Component{
 
 }
 
-const mapStateToProps = (state) =>{
-    return {
-        Transactions: state.Transactions,
-        isGetting: state.isGetting,
+const mapStateToProps=(state)=>{
+    return{
+        BanksName:state.BanksName,
+        Transactions:state.Transactions,
+        isGetting:state.isGetting
     }
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        transactionRequest: () => {
+const mapDispatchToProps=(dispatch)=>{
+    return{
+        transactionRequest:()=>{
             dispatch(transactionRequest());
         },
-        transactionDelete: (id) => {
+        transactionDelete:(id)=>{
             dispatch(transactionDelete(id));
+        },
+        bankNameRequest:()=>{
+            dispatch(bankNameRequest());
         }
-    }
+}
 };
 
-export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Table));
+export default connect(mapStateToProps,mapDispatchToProps)(Table);

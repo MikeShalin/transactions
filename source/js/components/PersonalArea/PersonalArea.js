@@ -1,17 +1,17 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {authRequest,authSuccess} from '../../actions/Auth/AuthActions.js';
-import Transactions from '../Transactions/';
-import Table from '../Table/';
+import {authRequest,authSuccess} from 'js/actions/Auth/AuthActions.js';
+import Transactions from 'js/components/Transactions/';
+import Table from 'js/components/Table/';
 import {Switch,Route,Link,Redirect,withRouter} from 'react-router-dom';
 
-export class Switcher extends Component{
-    handleExit =(e)=> {
-        const {authRequest} = this.props;
+export class PersonalArea extends Component{
+    handleExit=(e)=>{
+        const {authRequest}=this.props;
         e.preventDefault();
         authRequest({
-            login: false,
-            password: false,
+            login:false,
+            password:false,
         });
     };
     render(){
@@ -34,18 +34,18 @@ export class Switcher extends Component{
 
 }
 
-const mapStateToProps = (state) =>{
-    return {
+const mapStateToProps=(state)=>{
+    return{
         Auth:state.Auth
     }
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return {
+const mapDispatchToProps=(dispatch)=>{
+    return{
         authRequest:(logIn)=>{
             dispatch(authRequest(logIn))
         }
     }
 };
 
-export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Switcher));
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(PersonalArea));

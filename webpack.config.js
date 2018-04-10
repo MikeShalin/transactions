@@ -26,7 +26,8 @@ module.exports = {
         ]
     },
     resolve: {
-        extensions: ['*', '.js', '.jsx']
+        extensions: ['*', '.js', '.jsx'],
+        modules: [path.join(__dirname, 'source'), 'node_modules']
     },
     devServer: {
         proxy: { // proxy URLs to backend development server

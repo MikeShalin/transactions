@@ -1,7 +1,5 @@
-import {bankNameSuccess} from '../../actions/Bank/BankActions';
-
+import {bankNameSuccess} from 'js/actions/Bank/BankActions';
 import {handleAction, handleActions} from 'redux-actions';
-
 
 export const BanksName = handleAction(
     bankNameSuccess,

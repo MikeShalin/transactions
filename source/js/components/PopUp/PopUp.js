@@ -1,13 +1,9 @@
-import React, {Component} from 'react';
+import React from 'react';
 
-export class PopUp extends Component{
-
-    render(){
-        return(
-            <h2>{this.props.children}</h2>
-        )
-    }
-
-}
+const PopUp=(props)=>{
+    return(
+        <h2>{props.children}</h2>
+    )
+};
 
 export default PopUp;

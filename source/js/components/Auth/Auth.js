@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {authRequest,authSuccess} from '../../actions/Auth/AuthActions.js';
-import {withRouter} from 'react-router-dom';
-import PopUp from '../PopUp';
-import Input from '../Input/';
+import {authRequest,authSuccess} from 'js/actions/Auth/AuthActions.js';
+import PopUp from 'js/components/PopUp';
 
 export class Auth extends Component{
     constructor(props){
@@ -14,8 +12,8 @@ export class Auth extends Component{
         }
     }
     componentDidMount(){
-        const {login,password} = localStorage,
-              {authSuccess} = this.props;
+        const {login,password}=localStorage,
+              {authSuccess}=this.props;
         if (login && password){
             authSuccess({
                 login,
@@ -23,9 +21,9 @@ export class Auth extends Component{
             });
         }
     }
-    handleSubmit =(e)=> {
-        const {authRequest} = this.props,
-              {login,password} = this.state;
+    handleSubmit=(e)=>{
+        const {authRequest}=this.props,
+              {login,password}=this.state;
         e.preventDefault();
         authRequest({
             login,
@@ -36,26 +34,26 @@ export class Auth extends Component{
             password:''
         })
     };
-    handleChange =(e)=> {
-        const {name,value} = e.target;
+    handleChange=(e)=>{
+        const {name,value}=e.target;
         this.setState({
             [name]:value
         })
     };
     render(){
-        const {login,password} = this.state,
-              {AuthError} = this.props;
+        const {login,password}=this.state,
+              {AuthError}=this.props;
         return(
            <div>
                <form action="" onSubmit={this.handleSubmit}>
-                   <Input
+                   <input
                        name="login"
                        placeholder="Введите логин"
                        type="text"
                        value={login}
                        onChange={this.handleChange}
                    />
-                   <Input
+                   <input
                        name="password"
                        placeholder="Введите пароль"
                        type="password"
@@ -71,22 +69,22 @@ export class Auth extends Component{
 
 }
 
-const mapStateToProps = (state) =>{
-    return {
+const mapStateToProps=(state)=>{
+    return{
         Auth:state.Auth,
         AuthError:state.AuthError
     }
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        authRequest: (logIn) => {
+const mapDispatchToProps=(dispatch)=>{
+    return{
+        authRequest:(logIn)=>{
             dispatch(authRequest(logIn));
         },
-        authSuccess: (bool) => {
+        authSuccess:(bool)=>{
             dispatch(authSuccess(bool))
         }
     }
 };
 
-export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Auth));
+export default connect(mapStateToProps,mapDispatchToProps)(Auth);

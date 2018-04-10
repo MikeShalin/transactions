@@ -1,66 +1,72 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {transactionAdd} from '../../actions/Transaction/TransactionActions';
-import {withRouter} from 'react-router-dom';
-import Select from '../Select/';
-import Input from '../Input/';
-import PopUp from '../PopUp/';
+import {transactionAdd,transactionRequest} from 'js/actions/Transaction/TransactionActions';
+import PopUp from 'js/components/PopUp/';
+import {bankNameRequest} from 'js/actions/Bank/BankActions';
 
 export class Transactions extends Component{
     constructor(props){
         super(props);
-        this.state = {
+        this.state={
             amount:"",
-            bank:1,
+            bank:'lol',
             textPopUp:"Введите число",
             popUpShow:false
         }
     }
-    componentDidUpdate(prevProps) {
-        const {Transactions,TransactionError} =this.props;
-        if (Transactions.length !== prevProps.Transactions.length)
+    componentDidUpdate(prevProps){
+        const {Transactions,TransactionError,BanksName}=this.props;
+        if ((Transactions.length!==prevProps.Transactions.length) && (prevProps.Transactions.length!==0 && Transactions.length!==0))
             this.setState({textPopUp:'Транзакция успешно добавлена',popUpShow:true});
         if(TransactionError && !prevProps.TransactionError)
             this.setState({popUpShow:true});
         if(TransactionError && !prevProps.TransactionError && Transactions.length === prevProps.Transactions.length)
             this.setState({textPopUp:'Введите число'});
+        if(prevProps.BanksName.length===0 && BanksName.length!==0)
+            this.setState({bank:Math.min.apply(null,BanksName.map(bank=>(bank.id)))});
     }
-    componentDidMount(){
-        const {BanksName} = this.props;
-        this.setState({initialBank:Math.min.apply(null, BanksName.map(bank => (bank.id)))});
+    componentWillMount() {
+        const {bankNameRequest,Transactions,transactionRequest} = this.props;
+        if(Transactions.length===0)
+            transactionRequest();
+        bankNameRequest();
     }
-    handleSubmit =(e)=> {
-        const {transactionAdd,BanksName} = this.props;
+    handleSubmit=(e)=>{
+        const {transactionAdd,BanksName}=this.props;
         e.preventDefault();
         transactionAdd(this.state);
         this.setState({
             amount:"",
-            bank:Math.min.apply(null, BanksName.map(bank => (bank.id)))
+            bank:Math.min.apply(null,BanksName.map(bank=>(bank.id)))
         });
     };
-    handleChange =(e)=> {
-        const {name,value} = e.target;
+    handleChange=(e)=>{
+        const {name,value}=e.target;
         this.setState({
             [name]:value
         });
     };
     render(){
-        const {amount,bank,textPopUp,popUpShow} = this.state;
+        const {amount,bank,textPopUp,popUpShow}=this.state,
+              {BanksName}=this.props;
         return(
            <div>
                <form action="" onSubmit={this.handleSubmit}>
-                   <Select
-                       onChange={this.handleChange}
-                       name='bank'
-                       value={bank}
-                   />
-                   <Input
+                   <select onChange={this.handleChange}
+                           name="bank"
+                           value={bank}
+                   >
+                       {BanksName?BanksName.map((el,i)=>(
+                           <option value={el.id}>{el.name}</option>
+                       )):''}
+                   </select>
+                   <input
                        name="amount"
                        placeholder="Сумма"
                        type="text"
                        value={amount}
                        onChange={this.handleChange}
-                       isRequired={true}
+                       required={true}
                    />
                    <input type="submit"/>
                </form>
@@ -71,20 +77,26 @@ export class Transactions extends Component{
 
 }
 
-const mapStateToProps = (state) =>{
-    return {
-        BanksName: state.BanksName,
-        TransactionError: state.TransactionError,
-        Transactions: state.Transactions,
+const mapStateToProps=(state)=>{
+    return{
+        BanksName:state.BanksName,
+        TransactionError:state.TransactionError,
+        Transactions:state.Transactions,
     }
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        transactionAdd: (transactions) => {
+const mapDispatchToProps=(dispatch)=>{
+    return{
+        transactionAdd:(transactions)=>{
             dispatch(transactionAdd(transactions));
+        },
+        bankNameRequest:()=>{
+            dispatch(bankNameRequest());
+        },
+        transactionRequest:()=>{
+            dispatch(transactionRequest());
         }
     }
 };
 
-export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Transactions));
+export default connect(mapStateToProps,mapDispatchToProps)(Transactions);
