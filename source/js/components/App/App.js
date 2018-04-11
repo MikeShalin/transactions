@@ -8,6 +8,17 @@ import {bankNameRequest} from 'js/actions/Bank/BankActions';
 import Transactions from 'js/components/Transactions/';
 
 export class App extends Component{
+    componentWillMount() {
+        const {authRequest,Auth}=this.props,
+              login=localStorage.getItem('login'),
+              password=localStorage.getItem('password');
+        if (!Auth&&login&&password){
+            authRequest({
+                login,
+                password
+            });
+        }
+    }
     handleExit=(e)=>{
         const {authRequest}=this.props;
         e.preventDefault();
@@ -29,6 +40,7 @@ export class App extends Component{
                 }
                 <Switch>
                     <Route path="/" exact component={Auth?Table:AuthComponent}/>
+                    {!Auth?<Redirect from="/Transactions" to="/"/>:""}
                     <Route path="/Transactions"  component={Transactions}/>
                     <Redirect from="*" to="/"/>
                 </Switch>

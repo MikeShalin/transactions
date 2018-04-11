@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {transactionAdd,transactionRequest} from 'js/actions/Transaction/TransactionActions';
 import PopUp from 'js/components/PopUp/';
 import {bankNameRequest} from 'js/actions/Bank/BankActions';
+import {withRouter} from 'react-router-dom';
 
 export class Transactions extends Component{
     constructor(props){
@@ -26,14 +27,16 @@ export class Transactions extends Component{
             this.setState({bank:Math.min.apply(null,BanksName.map(bank=>(bank.id)))});
     }
     componentWillMount() {
-        const {bankNameRequest,Transactions,transactionRequest} = this.props;
+        const {bankNameRequest,Transactions,transactionRequest,BanksName} = this.props;
         if(Transactions.length===0)
             transactionRequest();
         bankNameRequest();
+        this.setState({bank:Math.min.apply(null,BanksName.map(bank=>(bank.id)))});
     }
     handleSubmit=(e)=>{
         const {transactionAdd,BanksName}=this.props;
         e.preventDefault();
+        console.log('перед отпарвкой',this.state);
         transactionAdd(this.state);
         this.setState({
             amount:"",
@@ -99,4 +102,4 @@ const mapDispatchToProps=(dispatch)=>{
     }
 };
 
-export default connect(mapStateToProps,mapDispatchToProps)(Transactions);
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Transactions));

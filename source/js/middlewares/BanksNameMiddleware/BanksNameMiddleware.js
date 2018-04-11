@@ -4,7 +4,6 @@ import {
     bankNameFailure
 } from 'js/actions/Bank/BankActions';
 
-
 const BanksNameMiddleware=store=>next=>action=>{
     if (action.type===bankNameRequest.toString()){
         const banksName=[{id:1,name:'Сбербанк'},{id:2,name:'Югра'},{id:3,name:'ГазпромБанка'}];

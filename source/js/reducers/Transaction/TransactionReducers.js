@@ -1,16 +1,26 @@
 import {
     transactionSuccess,
     transactionError,
-    transactionRequest
-} from '../../actions/Transaction/TransactionActions';
+    transactionRequest,
+    transactionDelete
+} from 'js/actions/Transaction/TransactionActions';
 import {handleAction, handleActions} from 'redux-actions';
 
-export const Transactions = handleAction(
-    transactionSuccess,
-    (state, action) => action.payload,
-    []
-);
-
+export const Transactions = (
+    state = [],
+    action
+) => {
+    switch (action.type) {
+        case transactionSuccess.toString():
+            return action.payload;
+        case transactionDelete.toString():
+            const transactions=state.filter(transaction=>(transaction.id!==action.payload));
+            localStorage.setItem('banks', JSON.stringify(transactions));
+            return transactions;
+        default:
+            return state;
+    }
+};
 
 export const isGetting = handleActions(
     {

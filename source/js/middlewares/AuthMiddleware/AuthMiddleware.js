@@ -2,9 +2,9 @@ import {
     authRequest,
     authSuccess,
     authError
-} from 'js/actions/Auth/AuthActions.js';
+} from '../../actions/Auth/AuthActions.js';
 
-import {authorization} from 'js/components/Auth/authApi';
+import {authorization} from '../../components/Auth/authApi';
 const remove=(withErr,store)=>{
     store.dispatch(authSuccess(false));
     store.dispatch(authError(withErr));
@@ -19,10 +19,10 @@ const AuthMiddleware=store=>next=>action=>{
                 store.dispatch(authSuccess(true));
                 localStorage.setItem('login', login);
                 localStorage.setItem('password', password);
-            }else{
+            } else {
                 remove(true,store);
             }
-        }else{
+        } else {
             remove(false,store);
         }
 
