@@ -6,16 +6,17 @@ import {bankNameRequest} from 'js/actions/Bank/BankActions';
 
 export class Table extends Component{
     componentWillMount(){
-        const {transactionRequest,bankNameRequest} = this.props;
+        const {transactionRequest,bankNameRequest}=this.props;
         bankNameRequest();
         transactionRequest();
     }
     handleDelete(id){
-        const {transactionDelete} = this.props;
+        const {transactionDelete}=this.props;
         transactionDelete(id);
     };
     render(){
-        const {BanksName,Transactions,isGetting} = this.props;
+        const {BanksName,Transactions,isGetting}=this.props;
+        const names=new Map(BanksName.map(el=>[el.id,el.name]));
         return(
            <div>
                {isGetting?'Идет загрузка':''}
@@ -29,9 +30,9 @@ export class Table extends Component{
                    <BankRow
                        key={transaction.id}
                        i={i+1}
-                       amount = {transaction.amount}
-                       onDelete = {this.handleDelete.bind(this, transaction.id)}
-                       bankName = {BanksName.find(el=>(el.id===transaction.bankId))}
+                       amount={transaction.amount}
+                       onDelete={this.handleDelete.bind(this,transaction.id)}
+                       bankName={names.get(transaction.bankId)}
                    />
                )):'У вас пока нет транзакций'}
                </table>

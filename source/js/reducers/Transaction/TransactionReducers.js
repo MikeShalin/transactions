@@ -4,18 +4,18 @@ import {
     transactionDelete,
     transactionAdd
 } from 'js/actions/Transaction/TransactionActions';
-import {handleAction, handleActions} from 'redux-actions';
+import {handleActions} from 'redux-actions';
 
-export const Transactions = (
-    state = [],
+export const Transactions=(
+    state=[],
     action
-) => {
-    switch (action.type) {
+)=>{
+    switch (action.type){
         case transactionSuccess.toString():
             return action.payload;
         case transactionDelete.toString():
             const transactions=state.filter(transaction=>(transaction.id!==action.payload));
-            localStorage.setItem('banks', JSON.stringify(transactions));
+            localStorage.setItem('transactions', JSON.stringify(transactions));
             return transactions;
         case transactionAdd.toString():
             const {amount,bankId}=action.payload,
@@ -24,7 +24,7 @@ export const Transactions = (
                     amount,
                     bankId
                 },
-                newState = [...state,newTransaction];
+                newState=[...state,newTransaction];
             localStorage.setItem('transactions', JSON.stringify(newState));
             return newState;
         default:
@@ -32,10 +32,10 @@ export const Transactions = (
     }
 };
 
-export const isGetting = handleActions(
+export const isGetting=handleActions(
     {
-        [transactionRequest]: () => true,
-        [transactionSuccess]: () => false,
+        [transactionRequest]:()=>true,
+        [transactionSuccess]:()=>false,
     },
     false
 );

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {authRequest,authSuccess} from 'js/actions/Auth/AuthActions.js';
-import PopUp from 'js/components/PopUp';
+import {PopUp} from 'js/components/PopUp/PopUp';
 
 export class Auth extends Component{
     constructor(props){

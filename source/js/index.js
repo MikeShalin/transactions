@@ -7,7 +7,7 @@ import 'sacc/base.scss'
 
 import createStore from './store';
 
-const store = createStore();
+const store=createStore();
 
 ReactDOM.render(
     <BrowserRouter>

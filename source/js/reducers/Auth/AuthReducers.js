@@ -5,11 +5,11 @@ import {
 } from 'js/actions/Auth/AuthActions.js';
 import {handleAction} from 'redux-actions';
 
-export const Auth = (
-    state = false,
+export const Auth=(
+    state=false,
     action
-) => {
-    switch (action.type) {
+)=>{
+    switch(action.type){
         case authSuccess.toString():
             return action.payload;
         case logOut.toString():
@@ -19,9 +19,9 @@ export const Auth = (
     }
 };
 
-export const AuthError = handleAction(
+export const AuthError=handleAction(
     authError,
-    (state, action) => action.payload,
+    (state,action)=>action.payload,
     null
 );
 

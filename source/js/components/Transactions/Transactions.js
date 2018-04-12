@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {transactionAdd,transactionRequest} from 'js/actions/Transaction/TransactionActions';
-import PopUp from 'js/components/PopUp/';
-import {bankNameRequest} from 'js/actions/Bank/BankActions';
-import {withRouter} from 'react-router-dom';
+import {transactionAdd} from 'js/actions/Transaction/TransactionActions';
+import {PopUp} from 'js/components/PopUp/PopUp';
 
 export class Transactions extends Component{
     constructor(props){
@@ -11,30 +9,27 @@ export class Transactions extends Component{
         this.state={
             amount:"",
             textPopUp:"Введите число",
-            popUpShow:false
+            popUpShow:false,
+            bankId:this.findStartId()
         }
     }
     findStartId(){
         const {BanksName}=this.props;
         return Math.min.apply(null,BanksName.map(bank=>(bank.id)));
     }
-    componentWillMount() {
-        const {bankNameRequest,Transactions,transactionRequest} = this.props;
-        if(Transactions.length===0)
-            transactionRequest();
-        bankNameRequest();
-        this.setState({bankId:this.findStartId()});
-    }
     handleSubmit=(e)=>{
         const {transactionAdd,BanksName}=this.props,
-              {amount}=this.state;
+              {amount,bankId}=this.state;
         e.preventDefault();
         //Проверяю число ли amount
         if(!Number.isNaN(Number(amount))){
-            transactionAdd(this.state);
+            transactionAdd({
+                bankId:Number(bankId),
+                amount:Number(amount)
+            });
             this.setState({
                 amount:"",
-                bankId:Math.min.apply(null,BanksName.map(bank=>(bank.id))),
+                bankId:this.findStartId(),
                 textPopUp:"Транзакция успешно добавлена",
                 popUpShow:true
             });
@@ -49,7 +44,7 @@ export class Transactions extends Component{
     handleChange=(e)=>{
         const {name,value}=e.target;
         this.setState({
-            [name]:Number(value)
+            [name]:value
         });
     };
     render(){
@@ -85,8 +80,7 @@ export class Transactions extends Component{
 
 const mapStateToProps=(state)=>{
     return{
-        BanksName:state.BanksName,
-        Transactions:state.Transactions,
+        BanksName:state.BanksName
     }
 };
 
@@ -94,14 +88,8 @@ const mapDispatchToProps=(dispatch)=>{
     return{
         transactionAdd:(transactions)=>{
             dispatch(transactionAdd(transactions));
-        },
-        bankNameRequest:()=>{
-            dispatch(bankNameRequest());
-        },
-        transactionRequest:()=>{
-            dispatch(transactionRequest());
         }
     }
 };
 
-export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Transactions));
+export default connect(mapStateToProps,mapDispatchToProps)(Transactions);

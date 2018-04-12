@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import AuthComponent from 'js/components/Auth/';
-import {authRequest,logOut} from 'js/actions/Auth/AuthActions.js';
+import {authRequest,logOut,authError} from 'js/actions/Auth/AuthActions.js';
 import Table from 'js/components/Table/';
 import {connect} from "react-redux";
 import {withRouter,Switch,Redirect,Route,Link} from 'react-router-dom';
@@ -8,21 +8,21 @@ import Transactions from 'js/components/Transactions/';
 
 export class App extends Component{
     handleExit=(e)=>{
-        const {logOut}=this.props;
+        const {logOut,authError}=this.props;
         e.preventDefault();
         localStorage.removeItem('login');
         localStorage.removeItem('password');
+        authError(false);
         logOut();
     };
     render(){
         const {Auth}=this.props;
-        console.log(Auth);
         return(
             <div>
                 {Auth?
                 <ul>
                     <li><Link to="/Table" component="Table">Таблица транзакций</Link></li>
-                    <li><Link to="/Transactions" component="Transactions">Добавить транакцию</Link></li>
+                    <li><Link to="/Transactions" component="Transactions">Добавить транзакцию</Link></li>
                     <li><Link to="/exit" component="exit" onClick={this.handleExit}>Выход</Link></li>
                 </ul>:""
                 }
@@ -49,6 +49,9 @@ const mapDispatchToProps=(dispatch)=>{
     return {
         logOut:()=>{
             dispatch(logOut());
+        },
+        authError:(bool)=>{
+            dispatch(authError(bool));
         }
     }
 };
