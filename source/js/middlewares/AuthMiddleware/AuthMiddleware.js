@@ -5,9 +5,9 @@ import {
 } from 'js/actions/Auth/AuthActions.js';
 
 import {authorization} from 'js/components/Auth/authApi';
-const remove=(withErr,store)=>{
+const remove=(store)=>{
     store.dispatch(authSuccess(false));
-    store.dispatch(authError(withErr));
+    store.dispatch(authError(true));
     localStorage.removeItem('login');
     localStorage.removeItem('password');
 };
@@ -20,10 +20,10 @@ const AuthMiddleware=store=>next=>action=>{
                 localStorage.setItem('login', login);
                 localStorage.setItem('password', password);
             } else {
-                remove(true,store);
+                remove(store);
             }
         } else {
-            remove(false,store);
+            remove(store);
         }
 
     }

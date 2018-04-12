@@ -18,46 +18,49 @@ export class Transactions extends Component{
         const {BanksName}=this.props;
         return Math.min.apply(null,BanksName.map(bank=>(bank.id)));
     }
-    componentDidUpdate(prevProps){
-        const {Transactions,TransactionError,BanksName}=this.props;
-        if ((Transactions.length!==prevProps.Transactions.length) && (prevProps.Transactions.length!==0 && Transactions.length!==0))
-            this.setState({textPopUp:'Транзакция успешно добавлена',popUpShow:true});
-        if(TransactionError && !prevProps.TransactionError)
-            this.setState({popUpShow:true});
-        if(TransactionError && !prevProps.TransactionError && Transactions.length === prevProps.Transactions.length)
-            this.setState({textPopUp:'Введите число'});
-    }
     componentWillMount() {
-        const {bankNameRequest,Transactions,transactionRequest,BanksName} = this.props;
+        const {bankNameRequest,Transactions,transactionRequest} = this.props;
         if(Transactions.length===0)
             transactionRequest();
         bankNameRequest();
-        this.setState({bank:this.findStartId()});
+        this.setState({bankId:this.findStartId()});
     }
     handleSubmit=(e)=>{
-        const {transactionAdd,BanksName}=this.props;
+        const {transactionAdd,BanksName}=this.props,
+              {amount}=this.state;
         e.preventDefault();
-        transactionAdd(this.state);
-        this.setState({
-            amount:"",
-            bank:Math.min.apply(null,BanksName.map(bank=>(bank.id)))
-        });
+        //Проверяю число ли amount
+        if(!Number.isNaN(Number(amount))){
+            transactionAdd(this.state);
+            this.setState({
+                amount:"",
+                bankId:Math.min.apply(null,BanksName.map(bank=>(bank.id))),
+                textPopUp:"Транзакция успешно добавлена",
+                popUpShow:true
+            });
+        } else {
+            this.setState({
+                amount:"",
+                textPopUp:"Введите число",
+                popUpShow:true
+            });
+        }
     };
     handleChange=(e)=>{
         const {name,value}=e.target;
         this.setState({
-            [name]:value
+            [name]:Number(value)
         });
     };
     render(){
-        const {amount,bank,textPopUp,popUpShow}=this.state,
+        const {amount,bankId,textPopUp,popUpShow}=this.state,
               {BanksName}=this.props;
         return(
            <div>
                <form action="" onSubmit={this.handleSubmit}>
                    <select onChange={this.handleChange}
-                           name="bank"
-                           value={bank}
+                           name="bankId"
+                           value={bankId}
                    >
                        {BanksName?BanksName.map((el,i)=>(
                            <option value={el.id}>{el.name}</option>
@@ -83,7 +86,6 @@ export class Transactions extends Component{
 const mapStateToProps=(state)=>{
     return{
         BanksName:state.BanksName,
-        TransactionError:state.TransactionError,
         Transactions:state.Transactions,
     }
 };
