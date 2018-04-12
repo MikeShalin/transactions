@@ -1,7 +1,7 @@
 import {
     authSuccess,
     authError
-} from '../../actions/Auth/AuthActions.js';
+} from 'js/actions/Auth/AuthActions.js';
 import {handleAction} from 'redux-actions';
 
 export const Auth = handleAction(

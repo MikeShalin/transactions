@@ -2,9 +2,9 @@ import {
     authRequest,
     authSuccess,
     authError
-} from '../../actions/Auth/AuthActions.js';
+} from 'js/actions/Auth/AuthActions.js';
 
-import {authorization} from '../../components/Auth/authApi';
+import {authorization} from 'js/components/Auth/authApi';
 const remove=(withErr,store)=>{
     store.dispatch(authSuccess(false));
     store.dispatch(authError(withErr));

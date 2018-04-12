@@ -6,7 +6,7 @@ import PopUp from 'js/components/PopUp';
 export class Auth extends Component{
     constructor(props){
         super(props);
-        this.state = {
+        this.state={
             login:"",
             password:""
         }

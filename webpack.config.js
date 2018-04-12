@@ -1,9 +1,9 @@
 const path = require("path");
 const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+// const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-    entry: ["./source/js/index.js"],
+    entry: ["./source/js/index.js","./source/sacc/base.scss"],
     output: {
         path: __dirname + "/public",
         filename: "bundle.js"
@@ -17,11 +17,27 @@ module.exports = {
             },
             {
                 test: /\.scss$/,
-                use: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: ['css-loader', 'sass-loader']
-                })
-
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: 'style.css',
+                            outputPath: '/'
+                        }
+                    },
+                    {
+                        loader: 'extract-loader'
+                    },
+                    {
+                        loader: 'css-loader'
+                    },
+                    {
+                        loader: 'postcss-loader'
+                    },
+                    {
+                        loader: 'sass-loader'
+                    }
+                ]
             }
         ]
     },
@@ -42,7 +58,7 @@ module.exports = {
         // ...
     },
     plugins: [
-        new ExtractTextPlugin('style.css')
+        // new ExtractTextPlugin('style.css')
     ],
     devtool:'none'
 

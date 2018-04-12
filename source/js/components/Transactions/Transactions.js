@@ -10,10 +10,13 @@ export class Transactions extends Component{
         super(props);
         this.state={
             amount:"",
-            bank:'lol',
             textPopUp:"Введите число",
             popUpShow:false
         }
+    }
+    findStartId(){
+        const {BanksName}=this.props;
+        return Math.min.apply(null,BanksName.map(bank=>(bank.id)));
     }
     componentDidUpdate(prevProps){
         const {Transactions,TransactionError,BanksName}=this.props;
@@ -23,20 +26,17 @@ export class Transactions extends Component{
             this.setState({popUpShow:true});
         if(TransactionError && !prevProps.TransactionError && Transactions.length === prevProps.Transactions.length)
             this.setState({textPopUp:'Введите число'});
-        if(prevProps.BanksName.length===0 && BanksName.length!==0)
-            this.setState({bank:Math.min.apply(null,BanksName.map(bank=>(bank.id)))});
     }
     componentWillMount() {
         const {bankNameRequest,Transactions,transactionRequest,BanksName} = this.props;
         if(Transactions.length===0)
             transactionRequest();
         bankNameRequest();
-        this.setState({bank:Math.min.apply(null,BanksName.map(bank=>(bank.id)))});
+        this.setState({bank:this.findStartId()});
     }
     handleSubmit=(e)=>{
         const {transactionAdd,BanksName}=this.props;
         e.preventDefault();
-        console.log('перед отпарвкой',this.state);
         transactionAdd(this.state);
         this.setState({
             amount:"",
