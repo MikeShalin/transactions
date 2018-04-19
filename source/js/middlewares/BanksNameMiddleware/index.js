@@ -1,1 +1,1 @@
-export {default} from './BanksNameMiddleware'
+export { default } from "./BanksNameMiddleware";

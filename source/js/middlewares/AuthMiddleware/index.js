@@ -1,1 +1,1 @@
-export {default} from './AuthMiddleware'
+export { default } from "./AuthMiddleware";

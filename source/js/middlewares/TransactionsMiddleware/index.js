@@ -1,1 +1,1 @@
-export {default} from './TransactionsMiddleware'
+export { default } from "./TransactionsMiddleware";
